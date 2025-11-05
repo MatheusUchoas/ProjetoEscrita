@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard — Escrita Terapêutica</title>
+  <style>
+    :root {
+      --bg:#f5f6fa;
+      --text:#2c3e50;
+      --muted:#6b7a8b;
+      --brand:#1abc9c;
+      --dark:#e9e8e8;
+      --card:#ffffff;
+      --ring: rgba(26,188,156,0.35);
+      --shadow: 0 8px 20px rgba(0,0,0,.08);
+      --radius: 14px;
+    }
+
+    * {margin:0;padding:0;box-sizing:border-box}
+
+    body {
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display:flex;
+      flex-direction:column;
+      min-height:100vh;
+    }
+
+    header {
+      background: var(--dark);
+      color:#000000;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px 24px;
+      position:sticky;
+      top:0;
+      z-index:10;
+    }
+    .logo {height:42px}
+    .usuario {font-weight:700; margin-left:16px;}
+
+    /* MENU TOPO */
+    nav.menu {
+      display:flex;
+      gap:18px;
+    }
+    nav.menu a {
+      color:#000;
+      text-decoration:none;
+      font-weight:500;
+      padding:8px 14px;
+      border-radius:8px;
+      transition:all .25s ease;
+      position:relative;
+    }
+    nav.menu a:hover {
+      background:rgba(255,255,255,0.15);
+      transform:translateY(-2px);
+    }
+    nav.menu a::after {
+      content:"";
+      position:absolute;
+      left:0;
+      bottom:0;
+      width:0;
+      height:2px;
+      background:#000;
+      transition:width .3s ease;
+      border-radius:4px;
+    }
+    nav.menu a:hover::after {width:100%}
+
+    /* BOTÃO HAMBÚRGUER */
+    .menu-toggle {
+      display:none;
+      flex-direction:column;
+      gap:5px;
+      cursor:pointer;
+    }
+    .menu-toggle span {
+      width:25px;
+      height:3px;
+      background:#000;
+      border-radius:2px;
+      transition:.3s;
+    }
+
+    /* Estado ativo (animação X) */
+    .menu-toggle.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+    .menu-toggle.active span:nth-child(2){opacity:0}
+    .menu-toggle.active span:nth-child(3){transform:rotate(-45deg) translate(6px,-6px)}
+
+    /* MENU MOBILE */
+    @media (max-width:768px){
+      nav.menu {
+        position:absolute;
+        top:64px;
+        right:0;
+        background:#fff;
+        flex-direction:column;
+        gap:12px;
+        padding:15px;
+        border-radius:var(--radius);
+        box-shadow: var(--shadow);
+        display:none;
+      }
+      nav.menu.show {display:flex}
+      .menu-toggle {display:flex}
+    }
+
+    main {flex:1; padding:24px; overflow:auto}
+    .welcome {
+      background:linear-gradient(135deg,#cacaca,#fff);
+      border:1px solid #c0bebe;
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow: var(--shadow);
+      margin-bottom:20px;
+    }
+    .welcome h1 {font-size:1.25rem; margin-bottom:6px}
+    .welcome p {color:var(--muted); font-size:.95rem}
+
+    .cards {
+      display:grid;
+      grid-template-columns: repeat(12,1fr);
+      gap:18px;
+    }
+    .col-4 {grid-column: span 4}
+    .col-6 {grid-column: span 6}
+    .col-8 {grid-column: span 8}
+    .col-12 {grid-column: span 12}
+
+    .card {
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      padding:18px;
+      border:1px solid #eef1f4;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .card h2 {font-size:1.05rem}
+    .card p {color:var(--muted); line-height:1.45}
+    .meta {font-size:.86rem; color:#7c8a9a}
+
+    .tag {
+      display:inline-block;
+      font-size:.75rem;
+      padding:4px 10px;
+      border-radius:999px;
+      background:#eefbf7;
+      color:#0f8d75;
+      border:1px solid #d6f4eb;
+    }
+
+    .divider {height:1px; background:#eef1f4; margin:6px 0}
+
+    /* BOTÕES */
+    .btn {
+      display:inline-block;
+      text-decoration:none;
+      text-align:center;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid #797777;
+      color:#fff;
+      background:#747373;
+      font-weight:600;
+      transition:all .25s ease;
+    }
+    .btn:hover {
+      background:var(--brand);
+      border-color:var(--brand);
+    }
+
+    .btn-outline {
+      background:transparent;
+      color:#000;
+      border:1px solid #000;
+    }
+    .btn-outline:hover {
+      background:var(--brand);
+      color:#fff;
+      border-color:var(--brand);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display:flex; align-items:center; gap:12px;">
+      <img class="logo" src="imagens/logoProjeto.png" alt="Logo do site" />
+      <div class="usuario">Olá, Usuário</div>
+    </div>
+
+    <!-- Botão hambúrguer (aparece no mobile) -->
+    <div class="menu-toggle" onclick="toggleMenu(this)">
+      <span></span><span></span><span></span>
+    </div>
+
+    <nav class="menu" id="menu">
+      <a href="#">Início</a>
+      <a href="#">Desafios</a>
+      <a href="#">Diário</a>
+      <a href="#">Ajuda</a>
+      <a href="#">Sair</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="welcome">
+      <h1>Que bom te ver aqui</h1>
+      <p>Este é o seu espaço seguro de escrita. Use os cards abaixo para começar.</p>
+    </section>
+
+    <section class="cards">
+      <article class="card col-8">
+        <div><span class="tag">Desafio do dia</span></div>
+        <h2>Hoje, escreva por 5 minutos sobre: <em>“Um momento recente em que você foi gentil consigo mesmo(a)”</em></h2>
+        <p>Se travar, tente completar frases como: “Eu me senti…”, “Eu pensei que…”, “Eu fiz isso porque…”.</p>
+        <div class="divider"></div>
+        <p class="meta">Dica: não edite enquanto escreve. Deixe fluir.</p>
+        <div><a class="btn" href="#">Começar agora</a></div>
+      </article>
+
+      <article class="card col-4">
+        <div><span class="tag">Diário</span></div>
+        <h2>Como foi seu dia?</h2>
+        <p>Três perguntas-guia:</p>
+        <p>1) O que aconteceu?<br>2) O que senti?<br>3) O que preciso agora?</p>
+        <div class="divider"></div>
+        <a class="btn" href="#">Escrever no diário</a>
+      </article>
+
+      <article class="card col-6">
+        <div><span class="tag">Cuidado</span></div>
+        <h2>Um afago para si</h2>
+        <p>Escreva uma carta para você como se fosse um(a) amigo(a) querido(a): reconheça a dor, valide o esforço e ofereça palavras gentis.</p>
+        <div class="divider"></div>
+        <p class="meta">Lembrete: você merece a mesma compreensão que oferece aos outros.</p>
+        <a class="btn" href="#">Escrever a carta</a>
+      </article>
+
+      <article class="card col-6">
+        <div><span class="tag">Explorar</span></div>
+        <h2>Biblioteca da criatividade</h2>
+        <p>Ansiedade, humor, autoestima, relações… Explore temas que ajudam a organizar pensamentos e emoções.</p>
+        <div class="divider"></div>
+        <a class="btn btn-outline" href="#">Abrir desafio</a>
+      </article>
+    </section>
+  </main>
+
+  <script>
+    function toggleMenu(el){
+      el.classList.toggle("active");
+      document.getElementById("menu").classList.toggle("show");
+    }
+  </script>
+</body>
+</html>

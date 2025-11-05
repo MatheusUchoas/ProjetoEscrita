@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tela de Cadastro</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background: #e9e8e8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cadastro-container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .cadastro-container img {
+      width: 100px;
+      margin-bottom: 1rem;
+      cursor: pointer;
+    }
+
+    .cadastro-container input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .cadastro-container button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      background: #1a1a1a;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .cadastro-container button:hover {
+      background: #05f79e;
+    }
+
+    .cadastro-links {
+      margin-top: 1rem;
+      font-size: 14px;
+    }
+
+    .cadastro-links a {
+      color: #353536;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .cadastro-links a:hover {
+      color: #05f79e;
+    }
+
+    /* Responsividade */
+    @media (max-width: 480px) {
+      body {
+        padding: 20px;
+      }
+
+      .cadastro-container {
+        max-width: 100%;
+        padding: 1.5rem;
+      }
+
+      .cadastro-container img {
+        width: 80px;
+      }
+
+      .cadastro-container input, 
+      .cadastro-container button {
+        font-size: 15px;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="cadastro-container">
+    <!-- Logo -->
+    <a href="projeto.html">
+      <img src="imagens/logoProjeto.png" alt="Logo do Site">
+    </a>
+
+    <form action="#" method="post">
+      <input type="email" name="email" placeholder="Digite seu e-mail" required>
+      <input type="password" name="senha" placeholder="Digite sua senha" required>
+      <input type="password" name="confirmar_senha" placeholder="Confirme sua senha" required>
+      <button type="submit">Cadastrar</button>
+    </form>
+
+    <div class="cadastro-links">
+      <a href="loginProjeto.html">Voltar para Login</a>
+    </div>
+  </div>
+</body>
+</html>
